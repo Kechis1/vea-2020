@@ -11,19 +11,24 @@ Hi <span th:text="${name}"></span>!
     <tr>
         <th>Jmeno</th>
         <th>Prijmeni</th>
+        <th>Věk</th>
     </tr>
     <tr th:each="person : ${people}">
         <td th:text="${person.firstName}">few</td>
         <td th:text="${person.lastName}">fe</td>
+        <td th:text="${person.age}">fe</td>
     </tr>
 </table>
 <br>
-<form th:action="@{/add}" method="post">
+<form th:action="@{/save}" method="post" action="/save" th:object="${person}">
     <label for="firstName">FirstName: </label>
-    <input id="firstName" type="text" name="firstName">
+    <input id="firstName" type="text" name="firstName" th:field="*{firstName}">
     <br>
     <label for="lastName">LastName: </label>
-    <input id="lastName" type="text" name="lastName">
+    <input id="lastName" type="text" name="lastName" th:field="*{lastName}">
+    <br>
+    <label for="age">Age: </label>
+    <input id="age" type="number" name="age" th:field="*{age}">
     <br>
     <button type="submit">Submit</button>
 </form>
