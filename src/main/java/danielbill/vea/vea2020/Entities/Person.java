@@ -1,6 +1,10 @@
-package danielbill.vea.vea2020.Controllers;
+package danielbill.vea.vea2020.Entities;
+
+import javax.validation.constraints.NotEmpty;
 
 public class Person {
+    private long id;
+    @NotEmpty
     private String firstName;
     private String lastName;
     private int age;
@@ -9,10 +13,20 @@ public class Person {
         super();
     }
 
-    public Person(String firstName, String lastName, int age) {
+    public Person(long id, String firstName, String lastName, int age) {
+        super();
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -39,10 +53,15 @@ public class Person {
         this.age = age;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 '}';

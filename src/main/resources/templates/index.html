@@ -4,33 +4,22 @@
     <title>Ahoj</title>
 </head>
 <body>
-    <h1>Index</h1>
-Hi <span th:text="${name}"></span>!
-<br>
-<table>
-    <tr>
-        <th>Jmeno</th>
-        <th>Prijmeni</th>
-        <th>Věk</th>
-    </tr>
-    <tr th:each="person : ${people}">
-        <td th:text="${person.firstName}">few</td>
-        <td th:text="${person.lastName}">fe</td>
-        <td th:text="${person.age}">fe</td>
-    </tr>
-</table>
-<br>
-<form th:action="@{/save}" method="post" action="/save" th:object="${person}">
-    <label for="firstName">FirstName: </label>
-    <input id="firstName" type="text" name="firstName" th:field="*{firstName}">
-    <br>
-    <label for="lastName">LastName: </label>
-    <input id="lastName" type="text" name="lastName" th:field="*{lastName}">
-    <br>
-    <label for="age">Age: </label>
-    <input id="age" type="number" name="age" th:field="*{age}">
-    <br>
-    <button type="submit">Submit</button>
+<h4 th:text="#{hello}"></h4>
+<form action="/save" th:action="@{/save}" th:object="${person}" method="post">
+    <input type="text" th:field="*{firstName}"/>
+    <ul>
+        <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}" />
+    </ul>
+    <input type="text" th:field="*{lastName}"/>
+    <input type="text" th:field="*{age}"/>
+    <input type="submit" value="Save"/>
+</form>
+
+<form action="/selectPerson" method="post">
+    <select name="person">
+        <option th:each="p : ${people}" th:value="${p.id}" th:text="${p.fullName}"></option>
+    </select>
+    <input type="submit" value="Ulozit"/>
 </form>
 </body>
 </html>
