@@ -18,22 +18,13 @@ public class MyFirstController {
 
     private static int counter = 0;
 
-    @Autowired
-    private PersonService personService;
 
     public MyFirstController() {
         counter++;
     }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute @Validated Person person, BindingResult personResult) {
-        if (personResult.hasErrors()) {
-            System.out.println(personResult.getAllErrors());
-        }
-        System.out.println("MyFirstControler " + counter);
-        personService.savePerson(person);
-        return "index";
-    }
+    @Autowired
+    private PersonService personService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -42,14 +33,30 @@ public class MyFirstController {
         return "index";
     }
 
+    @PostMapping("/save")
+    public String save(@ModelAttribute @Validated Person person, BindingResult personResult, Model model) {
+        if(personResult.hasErrors()) {
+            System.out.println(personResult.getAllErrors());
+        }
+        System.out.println("MyFirstController " + counter);
+        personService.savePerson(person);
+        model.addAttribute("people", personService.getAll());
+        return "index";
+    }
+
+    @ModelAttribute("people")
+    public List<Person> getAllPeople(){
+        mojeTestovaciMetoda();
+        return personService.getAll();
+    }
+
     @PostMapping("/selectPerson")
     public String selectPerson(Person person) {
         System.out.println(person);
         return "index";
     }
 
-    @ModelAttribute("people")
-    public List<Person> getAllPeople() {
-        return personService.getAll();
+    public void mojeTestovaciMetoda() {
+        System.out.println("pokus");
     }
 }

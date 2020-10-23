@@ -2,6 +2,13 @@ logging:
   level:
     ROOT: INFO
 spring:
+  datasource:
+    #    url: jdbc:derby://localhost/vea2020;create=true
+    #    username: app
+    #    password: app
+    #    driverClassName: org.apache.derby.client.ClientAutoloadedDriver
+    url: jdbc:h2:mem:vea2020
+    driverClassName: org.h2.Driver
   messages:
     basename: messages
   thymeleaf:
